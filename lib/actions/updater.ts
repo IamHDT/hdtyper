@@ -11,7 +11,12 @@ export function installUpdate(): HdtyperActions {
   };
 }
 
-export function updateAvailable(version: string, notes: string, releaseUrl: string, canInstall: boolean): HdtyperActions {
+export function updateAvailable(
+  version: string,
+  notes: string,
+  releaseUrl: string,
+  canInstall: boolean
+): HdtyperActions {
   return {
     type: UPDATE_AVAILABLE,
     version,

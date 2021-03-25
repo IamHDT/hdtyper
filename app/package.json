@@ -2,13 +2,9 @@
   "name": "hdtyper",
   "productName": "Hdtyper",
   "description": "A terminal built on web technologies",
-  "version": "3.1.0-grvr.4",
+  "version": "0.1.0",
   "license": "MIT",
-  "author": {
-    "name": "ZEIT, Inc.",
-    "email": "team@zeit.co"
-  },
-  "repository": "zeit/hdtyper",
+  "repository": "IamHDT/hdtyper",
   "dependencies": {
     "async-retry": "1.3.1",
     "chokidar": "^3.5.1",
