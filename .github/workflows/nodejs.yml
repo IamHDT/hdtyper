@@ -1,0 +1,64 @@
+name: Node CI
+on:
+  push:
+    branches:
+      - master
+      - grvr
+  pull_request:
+defaults:
+  run:
+    shell: bash
+jobs:
+  build:
+    runs-on: ${{matrix.os}}
+    strategy:
+      matrix:
+        node-version: [15.x]
+        os: [macos-11.0, ubuntu-latest, windows-latest]
+      fail-fast: false
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Install
+        run: yarn install
+      - name: Test
+        run: yarn run test
+      - name: Getting Build Icon
+        if: github.ref == 'refs/heads/grvr' || github.base_ref == 'grvr'
+        run: |
+          cp build/grvr.ico build/icon.ico
+          cp build/grvr.icns build/icon.icns
+      - name: Build (pr)
+        if: github.event_name == 'pull_request'
+        run: yarn run dist --publish=never
+      - name: Build (push)
+        if: github.event_name == 'push'
+        run: yarn run dist --publish=never
+        # env:
+        #   CSC_LINK: ${{ secrets.MAC_CERT_P12_BASE64 }}
+        #   CSC_KEY_PASSWORD: ${{ secrets.MAC_CERT_P12_PASSWORD }}
+        #   WIN_CSC_LINK: ${{ secrets.WIN_CERT_P12_BASE64 }}
+        #   WIN_CSC_KEY_PASSWORD: ${{ secrets.WIN_CERT_P12_PASSWORD }}
+      - name: Test Spectron
+        if: runner.os != 'Linux'
+        run: yarn run test:spectron
+      - name: Archive Spectron test screenshot
+        if: runner.os != 'Linux'
+        uses: actions/upload-artifact@v2
+        with:
+          name: spectron
+          path: dist/tmp/*.png
+      - name: Archive Build Artifacts
+        uses: LabhanshAgrawal/upload-artifact@v3
+        with:
+          path: |
+            dist/*.dmg
+            dist/*.snap
+            dist/*.AppImage
+            dist/*.deb
+            dist/*.rpm
+            dist/*.exe
