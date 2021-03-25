@@ -18,6 +18,10 @@
     "clean": "node ./bin/rimraf-standalone.js node_modules && node ./bin/rimraf-standalone.js ./app/node_modules && node ./bin/rimraf-standalone.js ./app/renderer"
   },
   "license": "MIT",
+  "author": {
+    "name": "Thuan Ha",
+    "email": "yh2ts3curity@gmail.com"
+  },
   "dependencies": {
     "args": "5.0.1",
     "chalk": "4.1.0",

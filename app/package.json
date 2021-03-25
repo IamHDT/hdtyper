@@ -5,6 +5,10 @@
   "version": "0.1.0",
   "license": "MIT",
   "repository": "IamHDT/hdtyper",
+  "author": {
+    "name": "Thuan Ha",
+    "email": "yh2ts3curity@gmail.com"
+  },
   "dependencies": {
     "async-retry": "1.3.1",
     "chokidar": "^3.5.1",
